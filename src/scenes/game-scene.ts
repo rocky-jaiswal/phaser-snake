@@ -19,7 +19,7 @@ export class GameScene extends Phaser.Scene {
 
   // objects
   private player!: Snake
-  private apple!: Apple
+  private apples!: Apple[]
 
   // texts
   private scoreText!: Phaser.GameObjects.BitmapText
@@ -44,13 +44,18 @@ export class GameScene extends Phaser.Scene {
 
   create(): void {
     this.player = new Snake(this)
-    this.apple = new Apple({
-      scene: this,
-      options: {
-        x: this.rndXPos(),
-        y: this.rndYPos()
-      }
-    })
+    this.apples = Array(5)
+      .fill(null)
+      .map(
+        () =>
+          new Apple({
+            scene: this,
+            options: {
+              x: this.rndXPos(),
+              y: this.rndYPos()
+            }
+          })
+      )
 
     // text
     this.scoreText = this.add.bitmapText(
@@ -83,11 +88,25 @@ export class GameScene extends Phaser.Scene {
     const { x: headX, y: headY } = this.player.getHead()
 
     // player vs. apple collision
-    if (headX === this.apple.x && headY === this.apple.y) {
-      this.player.growSnake()
-      CONST.SCORE++
-      this.scoreText.setText(`${CONST.SCORE}`)
-      this.apple.newApplePosition(this.rndXPos(), this.rndYPos())
+    let c = 0
+    for (const apple of this.apples) {
+      if (headX === apple.x && headY === apple.y) {
+        this.player.growSnake()
+        CONST.SCORE++
+        this.scoreText.setText(`${CONST.SCORE}`)
+
+        apple.removeFromScene()
+
+        const newApple = new Apple({
+          scene: this,
+          options: {
+            x: this.rndXPos(),
+            y: this.rndYPos()
+          }
+        })
+        this.apples.splice(c, 1, newApple)
+      }
+      c += 1
     }
 
     // border vs. snake collision

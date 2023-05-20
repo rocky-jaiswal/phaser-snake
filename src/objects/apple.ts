@@ -27,4 +27,8 @@ export class Apple extends Phaser.GameObjects.Graphics {
     this.x = _rndX
     this.y = _rndY
   }
+
+  public removeFromScene() {
+    this.destroy()
+  }
 }
