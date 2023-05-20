@@ -32,11 +32,7 @@ export class Snake {
   private buildSnake(): void {
     let currentAlpha = 0
     for (let i = 0; i <= this.snakeLength; i++) {
-      if (i === 0) {
-        currentAlpha = 1
-      } else {
-        currentAlpha = 0.8
-      }
+      currentAlpha = i === 0 ? 1 : 0.8
 
       this.snakeBody[i] = this.scene.add
         .graphics({
@@ -119,6 +115,24 @@ export class Snake {
       ) {
         this.dead = true
       }
+    }
+  }
+
+  public moveToBeginning(pos: 'x' | 'y'): void {
+    if (pos === 'x') {
+      this.snakeBody[0].x = 0
+    }
+    if (pos === 'y') {
+      this.snakeBody[0].y = 0
+    }
+  }
+
+  public moveToEnd(pos: 'x' | 'y', endPos: number): void {
+    if (pos === 'x') {
+      this.snakeBody[0].x = endPos
+    }
+    if (pos === 'y') {
+      this.snakeBody[0].y = endPos
     }
   }
 }

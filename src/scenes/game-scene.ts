@@ -9,8 +9,10 @@ export class GameScene extends Phaser.Scene {
   // field and game setting
   private gameHeight!: number
   private gameWidth!: number
+
   private boardWidth!: number
   private boardHeight!: number
+
   private horizontalFields!: number
   private verticalFields!: number
   private tick!: number
@@ -18,7 +20,6 @@ export class GameScene extends Phaser.Scene {
   // objects
   private player!: Snake
   private apple!: Apple
-  private gameBorder!: Phaser.GameObjects.Graphics[]
 
   // texts
   private scoreText!: Phaser.GameObjects.BitmapText
@@ -32,18 +33,16 @@ export class GameScene extends Phaser.Scene {
   init(): void {
     this.gameHeight = this.sys.canvas.height
     this.gameWidth = this.sys.canvas.width
+
     this.boardWidth = this.gameWidth - 2 * CONST.FIELD_SIZE
     this.boardHeight = this.gameHeight - 2 * CONST.FIELD_SIZE
     this.horizontalFields = this.boardWidth / CONST.FIELD_SIZE
     this.verticalFields = this.boardHeight / CONST.FIELD_SIZE
+
     this.tick = 0
   }
 
   create(): void {
-    // objects
-    this.gameBorder = []
-    this.buildBorder()
-
     this.player = new Snake(this)
     this.apple = new Apple({
       scene: this,
@@ -61,35 +60,6 @@ export class GameScene extends Phaser.Scene {
       `${CONST.SCORE}`,
       16
     )
-  }
-
-  private buildBorder() {
-    let i = 0
-
-    for (let x = 0; x < this.gameWidth / CONST.FIELD_SIZE; x++) {
-      for (let y = 0; y < Math.floor(this.gameHeight / CONST.FIELD_SIZE); y++) {
-        if (
-          y === 0 ||
-          y >= Math.floor(this.gameHeight / CONST.FIELD_SIZE - 1) ||
-          x === 0 ||
-          x >= Math.floor(this.gameWidth / CONST.FIELD_SIZE - 1)
-        ) {
-          this.gameBorder[i] = this.add
-            .graphics({
-              x: -CONST.FIELD_SIZE + x * CONST.FIELD_SIZE,
-              y: -CONST.FIELD_SIZE + y * CONST.FIELD_SIZE,
-              fillStyle: { color: 0x61e85b, alpha: 0.3 }
-            })
-            .fillRect(
-              CONST.FIELD_SIZE,
-              CONST.FIELD_SIZE,
-              CONST.FIELD_SIZE,
-              CONST.FIELD_SIZE
-            )
-          i++
-        }
-      }
-    }
   }
 
   update(time: number): void {
@@ -121,10 +91,17 @@ export class GameScene extends Phaser.Scene {
     }
 
     // border vs. snake collision
-    for (const { x, y } of this.gameBorder) {
-      if (headX === x && headY === y) {
-        this.player.setDead(true)
-      }
+    if (headX >= this.gameWidth) {
+      this.player.moveToBeginning('x')
+    }
+    if (headY >= this.gameHeight) {
+      this.player.moveToBeginning('y')
+    }
+    if (headX <= 0) {
+      this.player.moveToEnd('x', this.gameWidth)
+    }
+    if (headY <= 0) {
+      this.player.moveToEnd('y', this.gameHeight)
     }
 
     // snake vs. snake collision
