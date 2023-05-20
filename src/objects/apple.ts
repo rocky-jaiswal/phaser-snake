@@ -18,16 +18,6 @@ export class Apple extends Phaser.GameObjects.Graphics {
     this.scene.add.existing(this)
   }
 
-  /**
-   * Randomly generate new apple position on the field
-   * @param _rndX [Random X Position]
-   * @param _rndY [Random Y Position]
-   */
-  public newApplePosition(_rndX: number, _rndY: number): void {
-    this.x = _rndX
-    this.y = _rndY
-  }
-
   public removeFromScene() {
     this.destroy()
   }

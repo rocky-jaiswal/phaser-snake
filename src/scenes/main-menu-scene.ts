@@ -15,7 +15,7 @@ export class MainMenuScene extends Phaser.Scene {
   init(): void {
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     this.startKey = this.input.keyboard!.addKey(
-      Phaser.Input.Keyboard.KeyCodes.S
+      Phaser.Input.Keyboard.KeyCodes.SPACE
     )
 
     if (CONST.SCORE > CONST.HIGHSCORE) {
@@ -36,10 +36,10 @@ export class MainMenuScene extends Phaser.Scene {
   create(): void {
     this.bitmapTexts.push(
       this.add.bitmapText(
-        this.sys.canvas.width / 2 - 28,
+        this.sys.canvas.width / 2 - 42,
         this.sys.canvas.height / 2 - 10,
         'snakeFont',
-        'S: PLAY',
+        'SPACE: PLAY',
         8
       )
     )
@@ -54,7 +54,7 @@ export class MainMenuScene extends Phaser.Scene {
     )
     this.bitmapTexts.push(
       this.add.bitmapText(
-        this.sys.canvas.width / 2 - 45,
+        this.sys.canvas.width / 2 - 50,
         this.sys.canvas.height / 2 + 30,
         'snakeFont',
         `HIGHSCORE:  ${CONST.HIGHSCORE}`,

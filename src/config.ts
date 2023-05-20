@@ -11,7 +11,7 @@ export const GameConfig: Phaser.Types.Core.GameConfig = {
   height: 600,
   zoom: 1,
   type: Phaser.AUTO,
-  parent: 'game',
+  parent: 'app',
   scene: [BootScene, MainMenuScene, GameScene],
   input: {
     keyboard: true,
