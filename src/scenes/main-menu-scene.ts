@@ -54,7 +54,7 @@ export class MainMenuScene extends Phaser.Scene {
     )
     this.bitmapTexts.push(
       this.add.bitmapText(
-        this.sys.canvas.width / 2 - 50,
+        this.sys.canvas.width / 2 - 48,
         this.sys.canvas.height / 2 + 30,
         'snakeFont',
         `HIGHSCORE:  ${CONST.HIGHSCORE}`,
