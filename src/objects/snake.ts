@@ -37,7 +37,7 @@ export class Snake {
       this.snakeBody[i] = this.scene.add
         .graphics({
           x: 16 - i * this.dotSize,
-          y: 16,
+          y: 32,
           fillStyle: { color: 0x61e85b, alpha: currentAlpha }
         })
         .fillRect(this.dotSize, this.dotSize, this.dotSize, this.dotSize)
@@ -62,6 +62,10 @@ export class Snake {
 
   public getSnakeLength(): number {
     return this.snakeLength
+  }
+
+  public getDirection(): string {
+    return this.direction
   }
 
   public move(): void {
@@ -120,7 +124,7 @@ export class Snake {
 
   public moveToBeginning(pos: 'x' | 'y'): void {
     if (pos === 'x') {
-      this.snakeBody[0].x = 0
+      this.snakeBody[0].x = 0 - CONST.FIELD_SIZE
     }
     if (pos === 'y') {
       this.snakeBody[0].y = 0

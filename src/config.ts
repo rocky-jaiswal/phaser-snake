@@ -7,8 +7,8 @@ import { MainMenuScene } from './scenes/main-menu-scene'
 export const GameConfig: Phaser.Types.Core.GameConfig = {
   title: 'Snake',
   version: '1.0',
-  width: 800,
-  height: 600,
+  width: 1280,
+  height: 960,
   zoom: 1,
   type: Phaser.AUTO,
   parent: 'app',

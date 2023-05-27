@@ -1,12 +1,10 @@
-/* eslint-disable @typescript-eslint/strict-boolean-expressions */
 import Phaser from 'phaser'
 
-// import { CONST } from '../const/const'
+import { CONST } from '../const/const'
 import type { IGraphicsConstructor } from '../interfaces/graphics.interface'
 
 export class Barrier extends Phaser.GameObjects.Graphics {
-  //   private readonly scene: Phaser.Scene
-  private readonly dotSize: number = 16
+  private readonly dotSize: number = CONST.FIELD_SIZE
   private readonly direction!: string
   private readonly length: number = 128
   public barrierBody!: Phaser.GameObjects.Graphics[]

@@ -139,11 +139,17 @@ export class GameScene extends Phaser.Scene {
     if (headY >= this.gameHeight) {
       this.player.moveToBeginning('y')
     }
-    if (headX <= 0) {
-      this.player.moveToEnd('x', this.gameWidth)
+    if (
+      headX === -(2 * CONST.FIELD_SIZE) &&
+      this.player.getDirection() === 'left'
+    ) {
+      this.player.moveToEnd('x', this.gameWidth - CONST.FIELD_SIZE)
     }
-    if (headY <= 0) {
-      this.player.moveToEnd('y', this.gameHeight)
+    if (
+      headY === -(2 * CONST.FIELD_SIZE) &&
+      this.player.getDirection() === 'up'
+    ) {
+      this.player.moveToEnd('y', this.gameHeight - CONST.FIELD_SIZE)
     }
 
     // snake vs. snake collision
@@ -157,13 +163,13 @@ export class GameScene extends Phaser.Scene {
 
   private rndXPos(): number {
     return (
-      Phaser.Math.RND.between(2, this.horizontalFields - 1) * CONST.FIELD_SIZE
+      Phaser.Math.RND.between(2, this.horizontalFields - 2) * CONST.FIELD_SIZE
     )
   }
 
   private rndYPos(): number {
     return (
-      Phaser.Math.RND.between(2, this.verticalFields - 1) * CONST.FIELD_SIZE
+      Phaser.Math.RND.between(2, this.verticalFields - 2) * CONST.FIELD_SIZE
     )
   }
 
