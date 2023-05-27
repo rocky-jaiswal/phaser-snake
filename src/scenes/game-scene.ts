@@ -54,18 +54,8 @@ export class GameScene extends Phaser.Scene {
 
   create(): void {
     this.player = new Snake(this)
-    this.apples = Array(5)
-      .fill(null)
-      .map(
-        () =>
-          new Apple({
-            scene: this,
-            options: {
-              x: this.rndXPos(),
-              y: this.rndYPos()
-            }
-          })
-      )
+
+    // barriers
     this.barriers = this.barrierCoordinates.map(
       (bc) =>
         new Barrier({
@@ -82,6 +72,20 @@ export class GameScene extends Phaser.Scene {
         this.bars.push({ x: b.x, y: b.y })
       })
     }
+
+    // apples
+    this.apples = Array(5)
+      .fill(null)
+      .map(() => {
+        const pos = this.newApplePos()
+        return new Apple({
+          scene: this,
+          options: {
+            x: pos.x,
+            y: pos.y
+          }
+        })
+      })
 
     // text
     this.scoreText = this.add.bitmapText(
