@@ -77,13 +77,9 @@ export class GameScene extends Phaser.Scene {
     this.apples = Array(5)
       .fill(null)
       .map(() => {
-        const pos = this.newApplePos()
         return new Apple({
           scene: this,
-          options: {
-            x: pos.x,
-            y: pos.y
-          }
+          options: this.newApplePos()
         })
       })
 
